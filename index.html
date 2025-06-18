@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/style.css">
+  <title>NextGen</title>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors">
+  <div class="flex w-full">
+    <aside id="sidebar" class="fixed top-0 left-0 h-screen bg-white dark:bg-black text-gray-800 dark:text-gray-200 transition-all duration-300 w-auto hidden md:flex flex-col border-r border-gray-200 dark:border-gray-700 z-30">
+      <div class="p-4 flex items-center justify-between">
+        <div class="flex justify-center items-center">
+          <img src="Images/NextGenLogo.png" 
+          class="block" alt="NextGen Logo" 
+          width="35" height="35">
+          <a href="#"><h2 class="text-xl font-bold mx-2 dark:text-[#79EFE8]  text-[#51beb7] ">
+            NextGen.tn
+          </h2></a>
+        </div>
+        <button onclick="minimizeSideBar()" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors">
+          <svg id="arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left">
+            <path d="m15 18-6-6 6-6">
+            </path>
+          </svg>
+        </button>
+      </div>
+      <nav id="sideContent" class="flex-1 overflow-y-auto">
+        <button class="flex items-center py-3 px-4 transition-colors w-full hover:bg-gray-100 dark:hover:bg-gray-800  ">
+          <img alt="Chat with Nexie" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 dark:blocl" src="Images/gen.png" style="color: transparent;">
+          <div class="flex items-center justify-between w-full"><span>Chat with Nexie</span></div>
+        </button>
+        <div class="relative">
+          <button onclick="loadStudyHelpContent()" id="study-help-btn" class="flex items-center w-full py-3 px-4 transition-colors hover:bg-teal-100 dark:hover:bg-gray-800">
+            <img alt="Study Help" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="filter-blue-500 mr-3 block dark:hidden" src="/Images/study-help.png" style="color: transparent;">
+            <img alt="Study Help" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 filter-blue-500 hidden dark:block"  src="/Images/study-help.png" style="color: transparent;">
+            <span class="flex-1 text-left">Study Help</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down ml-2"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+        </div>
+        <div class="ml-4" id="study-help-dropdown"></div>
+        <button class="flex items-center py-3 px-4 transition-colors w-full hover:bg-gray-100 dark:hover:bg-gray-800  " aria-label="Pomodoro Timer">
+          <img alt="Pomodoro Timer" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 block dark:hidden"  src="Images/tomato.png" style="color: transparent;"><img alt="Pomodoro Timer" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 hidden dark:block"  src="/Images/tomato.png" color: transparent;>
+          <div class="flex items-center justify-between w-full"><span>Pomodoro Timer</span></div></button>
+        <button class="flex items-center py-3 px-4 transition-colors w-full hover:bg-gray-100 dark:hover:bg-gray-800  " aria-label="Study With Me"><img alt="Study With Me" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 block dark:hidden" src="Images/studying.png" style="color: transparent;"><img alt="Study With Me" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 hidden dark:block" src="Images/studying.png" style="color: transparent;"><div class="flex items-center justify-between w-full"><span>Study With Me</span></div></button>
+        <button src="Images/workspace.png" class="flex items-center py-3 px-4 transition-colors w-full hover:bg-gray-100 dark:hover:bg-gray-800  opacity-60 cursor-not-allowed" disabled="" aria-label="Journal Planner"><img alt="Journal Planner" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 dark:hidden" src="Images/planner.png" style="color: transparent;"><img alt="Journal Planner" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 hidden dark:block" src="Images/planner.png" style="color: transparent;"><div class="flex items-center justify-between w-full"><span>Journal Planner</span><span class="ml-2 px-2 py-1 text-xs bg-blue-500 hover:bg-blue-600 dark:bg-red-500 hover:dark:bg-red-600 text-white rounded-full">Coming Soon!</span></div></button>
+        <div class="mt-4 px-4"><div class="flex items-center"><img alt="Workspace" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 hidden dark:block" style="color: transparent;" src="Images/workspace.png"><img alt="Workspace" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class="mr-3 block dark:hidden" src="/Images/workspace.png" style="color: transparent;"><h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400">Your Workspace</h3></div><button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-300 shadow h-9 px-4 py-2 w-full mt-2 bg-blue-500 text-white dark:text-white hover:bg-blue-600 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer">Coming Soon!</button></div>
+      </nav>
+      <div class="px-4 py-2 border-t border-gray-200 dark:border-gray-700">
+        <button class="cursor-pointer whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-300 shadow dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-50/90 h-9 px-4 py-2 w-full flex items-center justify-center gap-2 bg-teal-500 hover:bg-teal-600 text-white">
+          <img src="Images/install.png" width="24" height="24" alt="download">
+          <span>Install App</span>
+        </button>
+      </div>
+      <div class="w-full  p-4 flex justify-center">
+        <button onclick="toggleTheme()" class="p-2 rounded-full bg-gray-700 hover:bg-gray-800 cursor-pointer">
+          <img src="Images/sunny.png" alt="page theme" width="24" height="24">
+        </button>
+      </div>
+    </aside>
+    <div id="mainContent" class="transition-all duration-300 main-content flex flex-col flex-1 min-h-screen md:ml-72">
+      <main  class="flex-1 h-full overflow-auto">
+        <div class="min-h-screen">
+          <nav class="sticky top-0 z-40 
+          bg-white/80 dark:bg-black/80 
+            backdrop-blur-md flex justify-between items-center
+          text-gray-700 dark:text-white 
+            px-4 py-3 md:px-20 md:py-4">
+            <div>
+              <a class="font-bold md:pl-0
+              sm:pl-[3.5rem] text-xl pl-[3.5rem]
+              sm:text-[1.7rem] text-[1rem]" 
+              href="">Study with
+              <span class="dark:text-[#79EFE8] text-[#51beb7] text-md">NextGen</span>
+              </a>
+            </div>
+            <div class="flex items-center gap-4">
+              <button class="justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-300 hover:text-neutral-900 dark:hover:text-neutral-50 text-xs h-8 px-2 flex items-center gap-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800" type="button" id="radix-:r3:" aria-haspopup="menu" aria-expanded="false" data-state="closed">
+                <img alt="English" loading="lazy" width="20" height="20" decoding="async" data-nimg="1" class="rounded-sm object-cover" src="/Images/uk.png" style="color: transparent;">
+                <span class="hidden sm:inline text-sm font-medium">English</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down h-3 w-3 opacity-70"><path d="m6 9 6 6 6-6"></path></svg></button>
+              <button class="items-center justify-center whitespace-nowrap rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-neutral-300 shadow hover:bg-neutral-900/90 dark:text-neutral-900 dark:hover:bg-neutral-50/90 h-9 py-2 px-8 text-lg font-semibold bg-[#7bf6ee] dark:bg-[#7bf6ee] text-black transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-[#7bf6ee]/30 animate-wiggle hidden md:flex">
+                Sign in
+              </button>
+            </div>
+          </nav>
+          <main class="bg-white dark:bg-black text-gray-900 dark:text-white">
+            <section class="relative overflow-hidden custom-radial-gradient">
+              <div class="absolute inset-0 bg-grid-black/[0.03] dark:bg-grid-wite/[0.05] bg-[size:20px_20px]"></div>
+              <div class="max-w-7xl mx-auto px-6 text-center pt-16 md:pt-20">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-tight text-gray-900 dark:text-white">Welcome to <span class="text-[#7bf6ee]">NextGen.tn</span></h1>
+                <p class="text-md md:text-xl max-w-3xl mx-auto text-gray-700 dark:text-gray-300 mb-10">Your AI-powered learning companion. Built specifically for Tunisian students, featuring support for English, French and Tunisian.</p>
+              </div>
+              <div class="flex flex-col sm:flex-row justify-center gap-4 mb-6  md:mb-16">
+                <button class="group bg-blue-600 hover:bg-blue-700 text-white rounded-full py-3 px-6 font-medium  inline-flex items-center justify-center gap-2  transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/20 dark:hover:shadow-blue-500/10 relative overflow-hidden">
+                  <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></span>
+                  <span class="relative flex items-center justify-center gap-2">
+                    <span class="flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play flex-shrink-0"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </span>
+                    <span class="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 group-hover:after:w-full">
+                      Watch Demo
+                    </span>
+                  </span>
+                </button>
+                <button class="group bg-[#7bf6ee] hover:bg-[#6ce6de] dark:bg-[#7bf6ee]/20 dark:hover:bg-[#7bf6ee]/30  text-gray-800 dark:text-[#7bf6ee] rounded-full py-3 px-6 font-medium inline-flex items-center justify-center gap-2 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:shadow-[#7bf6ee]/20 border border-transparent dark:border-[#7bf6ee]/30 dark:hover:border-[#7bf6ee]/50 relative overflow-hidden">
+                    <span class="relative flex items-center justify-center gap-2 z-10">
+                      <span>Get Started</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right flex-shrink-0">
+                        <path d="m9 18 6-6-6-6"></path>
+                      </svg>
+                    </span>
+                    <span class="absolute inset-0 w-full h-full bg-[#7bf6ee]/60 dark:bg-[#7bf6ee]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pulse-animation z-0"></span>
+                </button>
+              </div>
+              <div class="mb-6 md:mb-0 max-w-5xl mx-auto relative rounded-2xl overflow-hidden backdrop-blur-md bg-white/5 dark:bg-black/20 border border-white/10 dark:border-gray-800 shadow-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl">
+                <div class="relative w-full" style="padding-top: 56.25%;">
+                  <iframe class="absolute top-0 left-0 w-full h-full rounded-lg" src="https://www.youtube.com/embed/FLyTcDMzq2Q?si=p9wtBQUHh_Xw1bdI" title="NextGen Coding Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+              </div>
+            </section>
+            <section class="py-8 md:py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-[#0a1930] dark:via-[#152a45] dark:to-[#1e3a5f]">
+              <div class="max-w-7xl mx-6 px-6  ">
+                <div class="text-center mb-8 md:mb-16">
+                  <h2 class="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+                    Everything You Need To Succeed
+                  </h2>
+                  <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                    AI-powered tools to transform how you study and learn
+                  </p>
+                </div>
+                <!-- grid lawel        -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 md:mb-24">
+                    <div class="flex flex-col justify-center order-2 md:order-1">
+                      <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 mb-4">
+                        <img class="w-8 h-8" src="Images/brainstorm.png" alt="brainstorm">
+                    </div>
+                    <h3 class="text-md md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Chat with Nexie</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mb-4">
+                      Get instant help with your studies using our AI-powered chat assistant
+                    </p>
+                    <div class="space-y-3 mb-6">
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Instant and accurate answers</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Study support following the official curriculum</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Support in French, English and Tunisian dialect</span>
+                      </div>
+                      
+                    </div>
+                    <a href="#" class="w-24 text-blue-600 dark:text-blue-400 flex items-center gap-1 hover:underline transition-colors">
+                      Try Now
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg>
+                    </a>
+                    </div>
+                    <div class="order-1 md:order-2">
+                      <img src="Images/values.png" alt="Values.png" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+              <!-- grid Theni  -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 md:mb-24">
+                    <div class="flex flex-col justify-center order-2 md:order-2">
+                      <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 mb-4">
+                        <img class="w-7 h-7" src="Images/document.png" alt="brainstorm">
+                    </div>
+                    <h3 class="text-md md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Intelligent Document Analysis</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mb-4">
+                      Upload your courses, assignments, or articles and let AI summarize them, extract key concepts, and answer your questions.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Document Chat</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Automatic Summary</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Revision Sheets</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Automatic Quizzes & Flashcards</span>
+                      </div>
+                    </div>
+                    <a href="#" class="w-24 text-purple-600 dark:text-purple-500 flex items-center gap-1 hover:underline transition-colors">
+                      Discover
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg>
+                    </a>
+                    </div>
+                    <div class="order-1 md:order-1">
+                      <img src="Images/documentation.png" alt="document.png" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+              <!-- grid thaleth  -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 md:mb-24">
+                    <div class="flex flex-col justify-center order-2 md:order-1">
+                      <div class="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-100 dark:bg-yellow-900/30 text-purple-600 dark:text-purple-400 mb-4">
+                        <img class="w-7 h-7" src="Images/open-book.png" alt="brainstorm">
+                    </div>
+                    <h3 class="text-md md:text-3xl font-bold mb-4 text-gray-900 dark:text-white">Revision & Practice Tools</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-400 max-w-2xl mb-4">
+                      Generate exercises, quizzes, revision sheets and flashcards to revise effectively and boost your productivity.
+                    </p>
+                    <div class="space-y-3 mb-6">
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Automatic exercises</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Assignment checker</span>
+                      </div>
+                      <div class="flex items-center gap-3">
+                        <div class="flex items-center justify-center w-5 h-5 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg>
+                        </div>
+                        <span class="text-gray-700 dark:text-gray-300">Feynman technique & Pomodoro timer</span>
+                      </div>
+                    </div>
+                    <a href="#" class="w-24 text-yellow-600 dark:text-yellow-500 flex items-center gap-1 hover:underline transition-colors">
+                      Explore
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right"><path d="m9 18 6-6-6-6"></path></svg>
+                    </a>
+                    </div>
+                    <div class="order-1 md:order-2">
+                      <img src="Images/tools.png" alt="document.png" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+              </div>
+              
+            </section>
+            <section class="py-12 md:py-20 relative overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/40 dark:from-gray-900 dark:via-blue-950/30 dark:to-indigo-950/40">
+              <div class="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.03] bg-[size:20px_20px]"></div>
+              <div class="absolute top-10 md:top-20 left-0 md:left-10 w-40 md:w-72 h-40 md:h-72 bg-blue-300/40 dark:bg-blue-700/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-40 dark:opacity-30 animate-blob"></div>
+              <div class="absolute bottom-5 md:bottom-10 right-0 md:right-10 w-40 md:w-72 h-40 md:h-72 bg-purple-300/40 dark:bg-purple-700/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-40 dark:opacity-30 animate-blob animation-delay-2000"></div>
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 md:w-96 h-60 md:h-96 bg-pink-300/30 dark:bg-pink-700/10 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-30 dark:opacity-20 animate-blob animation-delay-4000"></div>
+              <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+                <div class="text-center mb-10 md:mb-16">
+                  <h2 class="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 md:mb-6 dark:text-white bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 dark:from-white dark:via-blue-200 dark:to-indigo-200 bg-clip-text text-transparent">
+                    Explore the platform
+                  </h2>
+                  <p class="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                    Discover all the available tools to optimize your learning
+                  </p>
+                </div>
+                <div class="flex flex-wrap justify-center">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
+                    <!-- card 1 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-blue-200/40 dark:hover:shadow-blue-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-blue-500/90 text-white dark:bg-blue-600 dark:text-white ">
+                            <img src="Images/communication.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Chat with Nexie</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Get instant help with your studies using our AI-powered chat assistant</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-blue-600 dark:text-blue-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-blue-500 dark:bg-blue-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 2 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-purple-200/40 dark:hover:shadow-purple-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-purple-500/90 text-white dark:bg-purple-600 dark:text-white ">
+                            <img src="Images/document-white.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Document Chat</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Upload and analyze documents with AI assistance</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-purple-600 dark:text-purple-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-purple-500 dark:bg-purple-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 3 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-green-200/40 dark:hover:shadow-green-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-green-400/90 text-white dark:bg-green-500 dark:text-white ">
+                            <img src="Images/document-white.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Chat with Nexie</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Get instant help with your studies using our AI-powered chat assistant</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-green-600 dark:text-green-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:gdroup-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-green-500 dark:bg-green-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 4 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-yellow-200/40 dark:hover:shadow-yellow-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-yellow-100 to-yellow-200 dark:from-yellow-900/30 dark:to-yellow-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-yellow-500/90 text-white dark:bg-yellow-600 dark:text-white ">
+                            <img src="Images/pen.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Quiz Maker</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Create Custom quizzes to test your knowledge</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-yellow-600 dark:text-yellow-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-yellow-500 dark:bg-yellow-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 5 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-red-200/40 dark:hover:shadow-red-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900/30 dark:to-red-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-red-500/90 text-white dark:bg-red-600 dark:text-white ">
+                            <img src="Images/layers.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Flashcard Maker</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Create digital flashcard for effective memorization</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-red-600 dark:text-red-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-red-500 dark:bg-red-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 6 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-indigo-200/40 dark:hover:shadow-indigo-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/30 dark:to-indigo-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-indigo-500/90 text-white dark:bg-indigo-600 dark:text-white ">
+                            <img src="Images/pen-tool.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Cheatsheet Maker</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Generate quick reference guides for your studies</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-indigo-600 dark:text-indigo-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-blue-500 dark:bg-blue-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 7 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-pink-200/40 dark:hover:shadow-pink-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900/30 dark:to-pink-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-pink-500/90 text-white dark:bg-pink-600 dark:text-white ">
+                            <img src="Images/bulb.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Feynman Technique</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Learn complex topics using the feynman technique</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-pink-600 dark:text-pink-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-pink-500 dark:bg-pink-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 8 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-cyan-200/40 dark:hover:shadow-cyan-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-cyan-100 to-cyan-200 dark:from-cyan-900/30 dark:to-cyan-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-cyan-500/90 text-white dark:bg-cyan-600 dark:text-white ">
+                            <img src="Images/open-magazine.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Exercise Generator</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Generate practice exercises for any subject</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-cyan-600 dark:text-cyan-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-cyan-500 dark:bg-cyan-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 9 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-teal-200/40 dark:hover:shadow-teal-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-teal-100 to-teal-200 dark:from-teal-900/30 dark:to-teal-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-teal-500/90 text-white dark:bg-teal-600 dark:text-white ">
+                            <img src="Images/checker.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Assignment checker</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Get instant feedback on assignments/p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-teal-600 dark:text-teal-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-teal-500 dark:bg-teal-600"></div>
+                        </div>
+                    </a>
+                    <!-- card 10 -->
+                    <a class="group relative rounded-xl md:rounded-2xl overflow-hidden transition-all duration-300 
+                            bg-white/90 dark:bg-gray-800/30 backdrop-blur-sm 
+                              border border-gray-200 dark:border-gray-700/50 
+                            hover:border-gray-300 dark:hover:border-gray-600
+                              shadow-sm hover:shadow-lg md:hover:shadow-xl md:hover:-translate-y-1
+                              hover:shadow-orange-200/40 dark:hover:shadow-orange-700/20"
+                              href="#">
+                        <div class="absolute inset-0 opacity-10 dark:opacity-10 transition-opacity duration-300 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-700/20 "></div>
+                        <div class="p-4 sm:p-5 md:p-6 h-full flex flex-col">
+                          <div class="relative p-2 sm:p-3 rounded-lg md:rounded-xl mb-3 md:mb-5 w-12 h-12 transition-all duration-300 bg-orange-500/90 text-white dark:bg-orange-600 dark:text-white ">
+                            <img src="Images/time.png" alt="chat.png">
+                          </div>
+                          <h3 class="text-base sm:text-lg font-semibold mb-1 sm:mb-2 text-gray-800 dark:text-white transition-colors">Pomodoro timer</h3>
+                          <p class="text-xs sm:text-sm text-gray-700 dark:text-gray-300 mb-2 sm:mb-3 flex-grow transition-colors">Stay focused with our Pomodoro timer</p>
+                          <div class="flex items-center text-xs sm:text-sm font-medium mt-1 sm:mt-2 
+                                    text-orange-600 dark:text-orange-400
+                                      md:opacity-0 md:transform md:translate-y-2 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-300">
+                            Learn more
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right ml-1 h-3 w-3 sm:h-4 sm:w-4"><path d="m9 18 6-6-6-6"></path></svg>
+                          </div>
+                          <div class="absolute bottom-0 left-0 right-0 h-1 transform 
+                                      scale-x-100 md:scale-x-0 md:group-hover:scale-x-100
+                                      transition-transform duration-500 ease-in-out origin-left
+                                    bg-orange-500 dark:bg-orange-600"></div>
+                        </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+        </div>
+      </main>
+      <footer class="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+              <p class="text-sm text-gray-500 dark:text-gray-400">© 2025 NextGen Coding. All rights reserved.</p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-x-8 gap-y-2">
+              <a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Privacy Policy</a>
+              <a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Terms of Service</a>
+              <a href="#" class="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Data Deletion</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+  <div style="position: fixed; z-index: 9999; inset: 16px; pointer-events: none;"></div>
+  
+</body>
+</html>
