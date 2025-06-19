@@ -31,18 +31,6 @@ function minimizeSideBar() {
         iconsAndImages.forEach(el => el.classList.remove('hidden'));
     }
 }
-
-function toggleTheme() {
-    const html = document.documentElement;
-    html.classList.toggle('dark');
-
-    if (html.classList.contains('dark')) {
-        localStorage.setItem('theme', 'dark');
-    } else {
-        localStorage.setItem('theme', 'light');
-    }
-}
-
 function loadStudyHelpContent() {
     const studyHelpBtn = document.getElementById('study-help-btn');
     const dropdown = document.getElementById('study-help-dropdown');
@@ -68,3 +56,26 @@ function loadStudyHelpContent() {
         dropdown.innerHTML = '';
     }
 }
+
+function toggleTheme() {
+    const html = document.documentElement;
+    html.classList.toggle('dark');
+    // Save preference
+    if (html.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+    console.log('Theme toggled:', html.classList.contains('dark') ? 'Dark' : 'Light');
+}
+
+// On page load, set theme from localStorage
+window.addEventListener('DOMContentLoaded', () => {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+});
+
