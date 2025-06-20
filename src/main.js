@@ -1,6 +1,13 @@
 let isMinimized = false;
+const startBtn = document.getElementById('startBtn');
+const minimizeBtn = document.getElementById('minimizeBtn');
+const studyHelpBtn = document.getElementById('study-help-btn');
+const toggleThemeBtn = document.getElementById('toggleThemeBtn');
 
-function minimizeSideBar() {
+startBtn.onclick= function(){
+    console.log('Start button clicked');
+}
+minimizeBtn.onclick = function minimizeSideBar() {
     const sidebar = document.getElementById('sidebar');
     const sideTextElements = sidebar.querySelectorAll('span, h2, .flex-1');
     const textElements = document.getElementById('sideContent').querySelectorAll('span, h2, .flex-1');
@@ -31,7 +38,7 @@ function minimizeSideBar() {
         iconsAndImages.forEach(el => el.classList.remove('hidden'));
     }
 }
-function loadStudyHelpContent() {
+studyHelpBtn.onclick= function loadStudyHelpContent() {
     const studyHelpBtn = document.getElementById('study-help-btn');
     const dropdown = document.getElementById('study-help-dropdown');
     const content = [
@@ -57,7 +64,7 @@ function loadStudyHelpContent() {
     }
 }
 
-function toggleTheme() {
+toggleThemeBtn.onclick = function toggleTheme() {
     const html = document.documentElement;
     html.classList.toggle('dark');
     // Save preference
