@@ -75,7 +75,7 @@ toggleThemeBtn.onclick = function toggleTheme() {
     }
     console.log('Theme toggled:', html.classList.contains('dark') ? 'Dark' : 'Light');
 }
-
+    
 // On page load, set theme from localStorage
 window.addEventListener('DOMContentLoaded', () => {
     const theme = localStorage.getItem('theme');
