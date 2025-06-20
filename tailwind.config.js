@@ -1,6 +1,6 @@
 module.exports = {
-  darkMode: 'class', // Enable dark mode support
-  content: ["./*.html"], // Update this to your file paths
+  darkMode: 'class', 
+  content: ["./*.html"],
   theme: {
     extend: {
       keyframes: {

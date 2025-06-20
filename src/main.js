@@ -102,8 +102,7 @@ const themeSwitch = () => {
 };
 
 // Add event listeners only if elements exist
-if (sunIcon) sunIcon.addEventListener('click', themeSwitch);
-if (moonIcon) moonIcon.addEventListener('click', themeSwitch);
+if (toggleThemeBtn) toggleThemeBtn.addEventListener('click', themeSwitch);
 
 // load initial theme
 themeCheck();
