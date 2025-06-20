@@ -2,6 +2,7 @@ let isMinimized = false;
 const startBtn = document.getElementById('startBtn');
 const minimizeBtn = document.getElementById('minimizeBtn');
 const studyHelpBtn = document.getElementById('study-help-btn');
+const toggleThemeBtn = document.getElementById('toggleThemeBtn');
 
 startBtn.onclick= function(){
     console.log('Start button clicked');
@@ -63,48 +64,46 @@ studyHelpBtn.onclick= function loadStudyHelpContent() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const toggleThemeBtn = document.getElementById('toggleThemeBtn');
-    const themeIcon = toggleThemeBtn.querySelector('img');
-    
-    // Enhanced theme setter
-    function setTheme(isDark) {
-        // Remove all theme classes first
-        document.documentElement.classList.remove('light', 'dark');
-        document.body.classList.remove('light', 'dark');
-        
-        if (isDark) {
-            document.documentElement.classList.add('dark');
-            document.body.classList.add('dark');
-            themeIcon.src = 'Images/moon.png';
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.classList.add('light');
-            document.body.classList.add('light');
-            themeIcon.src = 'Images/sunny.png';
-            localStorage.setItem('theme', 'light');
-        }
-        
-        // Force repaint
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // trigger reflow
-        document.body.style.display = '';
+// --------- toggle theme part -----------
+const sunIcon = document.querySelector('.sun'); 
+const moonIcon = document.querySelector('.moon'); 
+
+// theme variables
+const userTheme = localStorage.getItem('theme');
+const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+// toggle theme icons
+const iconToggle = () => {
+    moonIcon.classList.toggle('hidden');
+    sunIcon.classList.toggle('hidden');
+};
+
+// initializing theme check
+const themeCheck = () => {
+    if (userTheme === 'dark' || (userTheme === null && systemPreference)) {
+        document.documentElement.classList.add('dark');
+        moonIcon.classList.add('hidden');
+        return;
     }
+    sunIcon.classList.add('hidden');
+};
 
-    // Initialize theme
-    function initTheme() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            setTheme(savedTheme === 'dark');
-        } else {
-            setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
-        }
+// manual theme switch
+const themeSwitch = () => {
+    if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
     }
+    iconToggle();
+    console.log('Theme switched to:', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+};
 
-    initTheme();
+// Add event listeners only if elements exist
+if (sunIcon) sunIcon.addEventListener('click', themeSwitch);
+if (moonIcon) moonIcon.addEventListener('click', themeSwitch);
 
-    // Toggle theme
-    toggleThemeBtn.addEventListener('click', function() {
-        setTheme(!document.documentElement.classList.contains('dark'));
-    });
-});
+// load initial theme
+themeCheck();
